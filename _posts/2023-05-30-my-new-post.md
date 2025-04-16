@@ -35,6 +35,28 @@ Quisque egestas convallis ipsum, ut sollicitudin risus tincidunt a. Maecenas int
 2. Secondly
 3. Thirdly
 
+
+1\. Add `Required` annotation to the property
+
+```cs
+public class MyModel {
+  [Required]
+  public DataType PropertyName {get; set;}
+}
+```
+{: file='mymodel.cs'}
+
+2\. Add the `asp-for` attribute
+
+- the `data-val` and `data-required` are **auto-generated**
+
+```html
+<input asp-for="PropertyName" data-val="true" data-required="ErrorMessage">
+```
+{: file='myview.cshtml'}
+
+
+
 ### Unordered list
 
 - Chapter
