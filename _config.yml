@@ -14,9 +14,9 @@ timezone:
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: Chirpy # the main title
+title: Trestens Blog # the main title
 
-tagline: A text-focused Jekyll theme # it will display as the subtitle
+tagline: My Personal Blog!
 
 description: >- # used by seo meta and the atom feed
   A minimal, responsive and feature-rich Jekyll theme for technical writing.
@@ -26,10 +26,10 @@ description: >- # used by seo meta and the atom feed
 url: "https://TrestenPool.github.io"
 
 github:
-  username: github_username # change to your GitHub username
+  username: TrestenPool # change to your GitHub username
 
 twitter:
-  username: twitter_username # change to your Twitter username
+  username: Tresten_32 # change to your Twitter username
 
 social:
   # Change to your full name.
@@ -95,7 +95,8 @@ theme_mode: # [light | dark]
 # will be added to all media resources (site avatar, posts' images, audio and video files) paths starting with '/'
 #
 # e.g. 'https://cdn.com'
-cdn:
+cdn: 'https://trestenpool.github.io/blog2/assets/img'
+img_cdn: 'https://trestenpool.github.io/blog2/assets/img'
 
 # the avatar on sidebar, support local or CORS resources
 avatar:
@@ -138,7 +139,7 @@ assets:
     env: # [development | production]
 
 pwa:
-  enabled: true # The option for PWA feature (installable)
+  enabled: false # The option for PWA feature (installable)
   cache:
     enabled: true # The option for PWA offline cache
     # Paths defined here will be excluded from the PWA cache.
