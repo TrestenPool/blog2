@@ -58,7 +58,6 @@ image:
 - [Section 7. Docker Compose](#section-7-docker-compose)
   - [What is docker compose](#what-is-docker-compose)
   - [Docker cli tool](#docker-cli-tool)
-  - [docker-compose down --rmi local -v](#docker-compose-down---rmi-local--v)
   - [docker build](#docker-build)
 - [Section 8. Swarm Intro and Creating a 3-Node Swarm Cluster](#section-8-swarm-intro-and-creating-a-3-node-swarm-cluster)
   - [What is it](#what-is-it)
@@ -80,11 +79,6 @@ image:
   - [Telling docker to use a secret for a docker container](#telling-docker-to-use-a-secret-for-a-docker-container)
   - [Telling docker to use secrets in a container in the docker compose file](#telling-docker-to-use-secrets-in-a-container-in-the-docker-compose-file)
   - [Secrets with stacks](#secrets-with-stacks)
-- [Section 10: Swarm App Lifecycle](#section-10-swarm-app-lifecycle)
-  - [Full App Lifecycle with Compose](#full-app-lifecycle-with-compose)
-  - [Using the docker compose config to merge](#using-the-docker-compose-config-to-merge)
-  - [Swarm Updates](#swarm-updates)
-  - [Docker Healthcheck](#docker-healthcheck)
 - [Section 13 The What and Why of Kubernetes](#section-13-the-what-and-why-of-kubernetes)
   - [What is Kubernetes](#what-is-kubernetes)
   - [Why Kubernetes](#why-kubernetes)
@@ -784,9 +778,6 @@ tpool@tpool-thinkpad-l480:~$ docker inspect portainer
   - `docker-compose.yml` - is the default filename, but any can be used with `docker-compose -f`
   - now with docker 1.13+ these yaml files can be used with swarm
 
-## docker-compose down --rmi local -v
-  - removes all of the images that were built specifically for this docker-compose file and also removes any volumes that were created in association with it
-
 ## docker build
   - creates custom images before creating a container that will use them
 
@@ -1013,52 +1004,6 @@ secrets:
   psql-pw:
     external: true
 ```
-
-# Section 10: Swarm App Lifecycle
-
-## Full App Lifecycle with Compose
-  - `docker-compose up` for development environment
-  - `docker-compose up` for CI environment
-  - `docker stack deploy` production environment
-  - `docker-compose.override.yml` - by default when you run `docker-compose up` it will run this file
-  - `docker-compose -f docker-compose.override.yml up -d` - First runs docker-compose.yml then docker-compose.override.yml and merges them
-
-
-## Using the docker compose config to merge
-  `docker-compose -f docker-compose.yml -f docker-compose.test.yml config > output.yml`
-  - merges the two compose files into one combined one and outputs it to `output.yml`
-
-## Swarm Updates
-  - Provides rolling replacement of tasks/containers in a service
-  - Limits downtime (be careful with "prevents" downtime)
-
-  - How to update the image used to a newer version
-    - `docker service update --image myapp:1.2.1 myservicerunning`
-  - Adding an environment variable and remove a port
-    - `docker service update --env-add NODE_ENV=production --publish-rm 8080`
-  - Change number of replicas of two services
-    - `docker service scale web=8 api=6`
-  - Rebalancing to even out the tasks to the nodes in a swarm
-    - `docker service update --force web`
-
-## Docker Healthcheck
-  - `HEALTHCHECK` was added in 1.12
-  - supported in dockerfile, compose yaml, docker run, and swarm services
-  - docker engine will exec's the command in the container
-  - it expects exit 0(OK) or exit 1(ERROR)
-  - there are 3 container states (STARTING, HEALTHY, UNHEALTHY)
-  - `docker service create --name db --replicas 3 -e POSTGRES_PASSWORD=mysecretpassword --health-cmd "pg_isready -U postgres || exit 1" -d postgres`
-  - `docker container run --name db -e POSTGRES_PASSWORD=mysecretpassword --health-cmd "pg_isready -U postgres || exit 1" postgres`
-```yaml
-FROM UBUNTU:20.04
-
-COPY ./Downloads /home/newuser/Downloads
-
-WORKDIR /home/newuser/Downloads
-
-HEALTHCHECK ./healcheck-script.sh || exit 1
-```
-- if the healthcheck script fails then it will return 1 and status will be unhealthy
 
 
 # Section 13 The What and Why of Kubernetes
