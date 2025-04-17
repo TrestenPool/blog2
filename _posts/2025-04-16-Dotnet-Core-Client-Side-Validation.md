@@ -49,9 +49,6 @@ public string? PersonName { get; set; }
 ```
 {: file='mymodel.cshtml'}
 
-
-
-
 4\. Import JQuery Validation scripts
   - must be loaded in order
     - <https://cdnjs.com/libraries/jquery>
