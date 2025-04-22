@@ -9,6 +9,84 @@ image:
   path: /Dotnet-Core-Tag-Helpers/profile.png
 ---
 
+## What are Tag Helpers
+---
+
+- allow you to extend HTML elements with server-side capabilities.
+- they are C# classes that modifiy behavior and output of html elements during the **rendering process**
+
+Benefits
+  - HTML-friendly syntax
+  - strong typing (compile time type safety)
+  - code reuse
+  - reduced server roundtrips (more efficient)
+  - extensibility
+
+When to use Tag Helpers
+  - Form handline
+  - Links and URLS
+  - caching
+  - Conditional rendering 
+
+---
+<br><br>
+
+## Form Tag Helper
+
+The following example shows a form that uses the **Products** Controller and the **Create** action in that controller
+```html
+<form asp-controller="Products" asp-action="Create" method="POST">
+</form>
+```
+{: file='exampleView.cshtml'}
+
+---
+<br><br>
+
+## Input Tag Helper
+
+The following example show you can define the properties of a model in the model class and then use that in the form to automatically connect
+`asp-for` autofills the property for the label name and autogenerates the **for** attribute
+
+```html
+<label asp-for="ProductName"></label>
+
+<input asp-for="ProductName" class="...">
+
+<!-- This will show the client side validation errors if there is any   -->
+<span asp-validation-for="PersonName" class="text-red"></span>
+```
+{: file='exampleView.cshtml'}
+
+```cs
+public class Product {
+  // ...
+  [Required("This will show up as the error message")]
+  public string? ProductName {get; set;}
+}
+```
+{: file='Product.cs'}
+
+
+---
+<br><br>
+
+
+## Select Tag Helper
+--- 
+
+This example is a dropdown list bound to the CategoryId Property.
+`asp-items` takes in a collection to fill in the drop down list options.
+
+```html
+<select asp-for"CategoryId" asp-items="Model.Categories"></select>
+```
+{: file='exampleView.cshtml'}
+
+---
+<br><br>
+
+
 
 ## asp-fallback-test & asp-fallback-src
 --- 
