@@ -53,3 +53,20 @@ class Dog : Animal{
 ---
 <br><br>
 
+
+## Parameterless constructor constraint
+---
+
+The parameterless constructor `where T: new()` ensures that the type you use has a **public parameterless constructor**
+```cs
+static void Initializable<T> (T[] array) where T: new() {
+  for(int i = 0; i < array.length; i++) {
+    array[i] = new T();
+  }
+}
+```
+{: file='Program.cs'}
+
+---
+<br><br>
+
